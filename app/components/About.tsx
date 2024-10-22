@@ -141,7 +141,7 @@ const About: React.FC<AboutProps> = ({ aboutRef }) => {
         <div className="w-full md:w-1/2 order-1 md:order-2 flex flex-col items-center ">
           <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 mb-6 overflow-hidden rounded-full shadow-xl">
             <Image
-              src="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/gemini%20image.jpg?alt=media&token=2f7679c5-ad19-4852-b568-10871dce6e98"
+              src="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/gemini%20image.jpg?alt=media&token=2a7a1c5d-0fe6-49ae-8c52-a06aa95e31e3"
               alt="About Me Illustration"
               layout="fill"
               objectFit="cover"
