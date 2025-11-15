@@ -1,31 +1,60 @@
 "use client"
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Moon, Sun, ChevronDown, Github, Linkedin, Mail } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import { Button } from "@/app/components/ui/button"
-import Image from 'next/image'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import About from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Experience from './components/Experience'
-import Contact from './components/Contact'
+import Blog from './components/Blog'
+import ContactForm from './components/ContactForm'
 
 
 export default function HomePage() {
   const [isDarkMode, setIsDarkMode] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const heroRef = useRef<HTMLElement>(null)
   const aboutRef = useRef<HTMLElement>(null)
   const skillsRef = useRef<HTMLElement>(null)
   const projectsRef = useRef<HTMLElement>(null)
   const experienceRef = useRef<HTMLElement>(null)
+  const blogRef = useRef<HTMLElement>(null)
   const contactRef = useRef<HTMLElement>(null)
+
+  // Load theme from localStorage on mount
+  useEffect(() => {
+    setMounted(true)
+    const savedTheme = localStorage.getItem('theme')
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      setIsDarkMode(true)
+      document.documentElement.classList.add('dark')
+    } else {
+      setIsDarkMode(false)
+      document.documentElement.classList.remove('dark')
+    }
+  }, [])
+
+  // Save theme to localStorage when it changes
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light')
+    }
+  }, [isDarkMode, mounted])
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode)
     document.documentElement.classList.toggle('dark')
+  }
+
+  // Prevent flash of unstyled content
+  if (!mounted) {
+    return null
   }
 
   const scrollToSection = (ref: React.RefObject<HTMLElement>) => {
@@ -42,6 +71,7 @@ export default function HomePage() {
         skillsRef={skillsRef}
         projectsRef={projectsRef}
         experienceRef={experienceRef}
+        blogRef={blogRef}
         contactRef={contactRef}
         heroRef={heroRef}
         isDarkMode={isDarkMode}
@@ -55,11 +85,12 @@ export default function HomePage() {
           <Skills skillsRef={skillsRef} />
           <Projects projectsRef={projectsRef} />
           <Experience experienceRef={experienceRef} />
-          <Contact contactRef={contactRef} />
+          <Blog blogRef={blogRef} />
+          <ContactForm contactRef={contactRef} />
         </main>
 
         <footer className="bg-gray-100 dark:bg-gray-800 py-6 text-center">
-          <p>&copy; 2024 Semahegn Adugna. All rights reserved.</p>
+          <p>&copy; 2025 Semahegn Adugna. All rights reserved.</p>
         </footer>
 
         <motion.div

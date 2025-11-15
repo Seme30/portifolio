@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 import { Button } from './ui/button';
 import Link from 'next/link';
 
@@ -77,9 +77,10 @@ const Hero: React.FC<HeroProps> = ({ heroRef }) => {
               <Image
                 src="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/profile.png?alt=media&token=962d9be2-7ac3-4834-ad5a-2c4cb21ca010"
                 alt="Semahegn Adugna"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-full shadow-2xl"
+                fill
+                sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px"
+                className="rounded-full shadow-2xl object-cover"
+                priority
               />
               <div className="absolute -bottom-4 -right-4 bg-white dark:bg-gray-800 p-4 rounded-full shadow-lg">
                 <code className="text-[#7F52FF] font-semibold">{"<Software Engineer/>"}</code>

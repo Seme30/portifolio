@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -15,6 +15,9 @@ interface ProjectsProps {
 }
 
 const ProjectItem: React.FC<Project> = ({ title, description, image, link }) => {
+  const [imageError, setImageError] = useState(false);
+  const firstLetter = title.charAt(0).toUpperCase();
+
   return (
     <motion.div
     whileHover={{ y: -5, scale: 1.02 }}
@@ -24,13 +27,22 @@ const ProjectItem: React.FC<Project> = ({ title, description, image, link }) => 
         <motion.div
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3 }}
+          className="relative w-full h-full"
         >
-          <Image 
-            src={image} 
-            alt={title} 
-            layout="fill" 
-            objectFit="cover"
-          />
+          {!imageError ? (
+            <Image 
+              src={image} 
+              alt={title} 
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-[#7F52FF] to-[#6B44D8] flex items-center justify-center">
+              <span className="text-white text-8xl font-bold">{firstLetter}</span>
+            </div>
+          )}
         </motion.div>
         <motion.div 
           className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-opacity duration-300"

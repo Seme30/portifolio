@@ -1,8 +1,25 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['firebasestorage.googleapis.com', 'icon.icepanel.io', 'fendisha-tech.pages.dev', 'play-lh.googleusercontent.com'],
-      },
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'firebasestorage.googleapis.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'icon.icepanel.io',
+            },
+            {
+                protocol: 'https',
+                hostname: 'fendisha-tech.pages.dev',
+            },
+            {
+                protocol: 'https',
+                hostname: 'play-lh.googleusercontent.com',
+            },
+        ],
+    },
 };
 
 export default nextConfig;

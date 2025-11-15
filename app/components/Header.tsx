@@ -10,6 +10,7 @@ interface HeaderProps {
   skillsRef: React.RefObject<HTMLElement>;
   projectsRef: React.RefObject<HTMLElement>;
   experienceRef: React.RefObject<HTMLElement>;
+  blogRef: React.RefObject<HTMLElement>;
   contactRef: React.RefObject<HTMLElement>;
   isDarkMode: boolean;
   toggleTheme: () => void;
@@ -22,11 +23,13 @@ const Header: React.FC<HeaderProps> = ({
   skillsRef,
   projectsRef,
   experienceRef,
+  blogRef,
   contactRef,
   isDarkMode,
   toggleTheme
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [logoError, setLogoError] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -52,14 +55,21 @@ const Header: React.FC<HeaderProps> = ({
         <div className="flex justify-between items-center">
           <div 
             onClick={() => handleNavClick(heroRef)}
-            className="cursor-pointer"
+            className="cursor-pointer flex items-center"
           >
-            <Image
-              src="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/s-logo.png?alt=media&token=74ed0e58-9e86-4b87-8248-977db588c503"
-              alt="logo"
-              width={50}
-              height={50}
-            />
+            {!logoError ? (
+              <Image
+                src="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/s-logo.png?alt=media&token=74ed0e58-9e86-4b87-8248-977db588c503"
+                alt="logo"
+                width={50}
+                height={50}
+                onError={() => setLogoError(true)}
+              />
+            ) : (
+              <div className="w-12 h-12 bg-gradient-to-br from-[#7F52FF] to-[#6B44D8] rounded-full flex items-center justify-center">
+                <span className="text-white text-2xl font-bold">S</span>
+              </div>
+            )}
           </div>
           
           <div className="hidden md:flex items-center space-x-6">
@@ -67,6 +77,7 @@ const Header: React.FC<HeaderProps> = ({
             <button onClick={() => handleNavClick(skillsRef)} className="text-sm hover:text-[#7F52FF]">Skills</button>
             <button onClick={() => handleNavClick(projectsRef)} className="text-sm hover:text-[#7F52FF]">Projects</button>
             <button onClick={() => handleNavClick(experienceRef)} className="text-sm hover:text-[#7F52FF]">Experience</button>
+            <button onClick={() => handleNavClick(blogRef)} className="text-sm hover:text-[#7F52FF]">Blog</button>
             <button onClick={() => handleNavClick(contactRef)} className="text-sm hover:text-[#7F52FF]">Contact</button>
           </div>
 
@@ -96,6 +107,7 @@ const Header: React.FC<HeaderProps> = ({
               <button onClick={() => handleNavClick(skillsRef)} className="text-sm hover:text-[#7F52FF]">Skills</button>
               <button onClick={() => handleNavClick(projectsRef)} className="text-sm hover:text-[#7F52FF]">Projects</button>
               <button onClick={() => handleNavClick(experienceRef)} className="text-sm hover:text-[#7F52FF]">Experience</button>
+              <button onClick={() => handleNavClick(blogRef)} className="text-sm hover:text-[#7F52FF]">Blog</button>
               <button onClick={() => handleNavClick(contactRef)} className="text-sm hover:text-[#7F52FF]">Contact</button>
             </div>
           </div>

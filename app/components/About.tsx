@@ -143,9 +143,9 @@ const About: React.FC<AboutProps> = ({ aboutRef }) => {
             <Image
               src="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/gemini%20image.jpg?alt=media&token=2a7a1c5d-0fe6-49ae-8c52-a06aa95e31e3"
               alt="About Me Illustration"
-              layout="fill"
-              objectFit="cover"
-              className="transition-transform duration-300 hover:scale-110"
+              fill
+              sizes="(max-width: 768px) 256px, (max-width: 1024px) 320px, 384px"
+              className="transition-transform duration-300 hover:scale-110 object-cover"
             />
           </div>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-[#7F52FF] text-center">

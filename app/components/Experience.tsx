@@ -18,25 +18,32 @@ interface ExperienceProps {
 const Experience: React.FC<ExperienceProps> = ({ experienceRef }) => {
   const jobs: Job[] = [
     { 
-      role: 'Remote Senior Android Developer', 
-      company: 'Uhlman & Zacher', 
-      period: 'July 2024 - Present', 
-      description: 'Development and maintenance of ClexKey mobile application using Kotlin.',
-      link: 'https://play.google.com/store/apps/details?id=com.uundz.ClexKey'
+      role: 'Remote Full-stack Developer', 
+      company: 'The Bible House', 
+      period: 'Feb 2025 - Present', 
+      description: 'Contributing to key initiatives including web-to-SMS communication platforms, Ruby-based online store, self-hosted AI integration, advanced data scraping, multi-language web applications, and machine learning models for data preprocessing and feature extraction.',
+      link: 'https://bible.house/'
     },
     { 
-      role: 'Intern Mobile App Engineer', 
+      role: 'Android Developer', 
+      company: 'E-Hive: Developers on Demand', 
+      period: 'Jan 2024 - Present', 
+      description: 'Development and maintenance of Clex Key mobile application on Google Play Store, implementing features and ensuring optimal performance.',
+      link: 'https://www.ehive.it.com/'
+    },
+    { 
+      role: 'Mobile App Engineer Intern', 
       company: 'Safaricom Telecommunications Ethiopia', 
-      period: 'Apr 2024 - May 2024', 
+      period: 'Apr 2024 - Jun 2024', 
       link: 'https://safaricom.et/',
-      description: 'Take part in E-KYC project, a mobile application that allows users to verify their identity through their mobile phones.' 
+      description: 'Participated in E-KYC project development, a mobile application enabling users to verify their identity through their mobile phones.' 
     },
     { 
-      role: 'Remote Frontend Developer', 
-      company: 'Christopher Pickering', 
-      period: 'Jun 2023 - Dec 2023', 
-      description: 'Assisted in the development of web applications, gaining experience in various technologies such as React, Next.js, and Tailwind CSS.',
-      link: 'https://going.bg'
+      role: 'Remote Front-End Developer', 
+      company: 'The Bible House', 
+      period: 'Jul 2023 - Nov 2023', 
+      description: 'Developed and maintained web applications using modern frontend technologies including React, Next.js, and Tailwind CSS.',
+      link: 'https://bible.house/'
     },
   ];
 
