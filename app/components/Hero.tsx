@@ -61,7 +61,7 @@ const Hero: React.FC<HeroProps> = ({ heroRef }) => {
 
             <div className="hero-actions">
               <Link
-                href="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/New%20Seme%20CV.pdf?alt=media&token=aa77ab5d-61e7-4897-95c6-219547ff2a8b"
+                href="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/semahegn_adugna_cv.pdf?alt=media&token=ee8aef5f-5931-4b15-8573-de1fa823fdf0"
                 target="_blank"
                 className="quantum-button primary"
               >
