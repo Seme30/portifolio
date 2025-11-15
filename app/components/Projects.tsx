@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import './Projects.css';
 
 interface Project {
   title: string;
@@ -19,46 +19,40 @@ const ProjectItem: React.FC<Project> = ({ title, description, image, link }) => 
   const firstLetter = title.charAt(0).toUpperCase();
 
   return (
-    <motion.div
-    whileHover={{ y: -5, scale: 1.02 }}
-    transition={{ duration: 0.2 }} >
-    <Link href={link} target="_blank" rel="noopener noreferrer">
-      <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden">
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.3 }}
-          className="relative w-full h-full"
-        >
+    <div className="project-card-3d">
+      <Link href={link} target="_blank" rel="noopener noreferrer" className="project-link">
+        <div className="project-image-container">
+          <div className="holographic-overlay"></div>
           {!imageError ? (
             <Image 
               src={image} 
               alt={title} 
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover"
+              className="project-image"
               onError={() => setImageError(true)}
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-[#7F52FF] to-[#6B44D8] flex items-center justify-center">
-              <span className="text-white text-8xl font-bold">{firstLetter}</span>
+            <div className="project-fallback">
+              <span>{firstLetter}</span>
             </div>
           )}
-        </motion.div>
-        <motion.div 
-          className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-opacity duration-300"
-          whileHover={{ opacity: 1 }}
-          initial={{ opacity: 0 }}
-        />
-      </div>
-      <motion.div 
-        className="p-4 sm:p-6 transition-colors duration-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-      >
-        <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">{title}</h3>
-        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">{description}</p>
-      </motion.div>
-    </Link>
-  </motion.div>
-);
+          <div className="image-scan"></div>
+        </div>
+        <div className="project-content">
+          <h3 className="project-title">{title}</h3>
+          <p className="project-description">{description}</p>
+          <div className="project-glow"></div>
+        </div>
+        <div className="card-edges">
+          <div className="edge top-left"></div>
+          <div className="edge top-right"></div>
+          <div className="edge bottom-left"></div>
+          <div className="edge bottom-right"></div>
+        </div>
+      </Link>
+    </div>
+  );
 };
 
 
@@ -75,48 +69,17 @@ const Projects: React.FC<ProjectsProps> = ({ projectsRef }) => {
     { title: 'Chatbot App', description: 'An Android application built using Kotlin and Gemini API that lets it\'s users chat with Google\'s Gemini model.', link: 'https://github.com/Seme30/Gemini_Chat', image: 'https://play-lh.googleusercontent.com/dT-r_1Z9hUcif7CDSD5zOdOt4KodaGdtkbGszT6WPTqKQ-WxWxOepO6VX-B3YL290ydD=w240-h480-rw' },
    { title: 'Fendisha', description: 'A modern, responsive React website crafted for a cutting-edge digital agency. This dynamic web application showcases the agency\'s services, portfolio, and expertise in a visually compelling manner', link: 'https://fendisha-tech.pages.dev/', image: 'https://fendisha-tech.pages.dev/static/media/Fendisha-light.1c0a10a204183b26efbc.png' }, ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
-
   return (
-    <motion.section
-      ref={projectsRef}
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-      className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto"
-    >
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8 md:mb-12 text-[#7F52FF]">Projects</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
+    <section ref={projectsRef} className="projects-section">
+      <h2 className="section-title">
+        Projects<span className="title-dot">.</span>
+      </h2>
+      <div className="projects-grid">
         {projects.map((project, index) => (
-          <motion.div 
-            key={index} 
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
-            variants={itemVariants}
-          >
-            <ProjectItem {...project} />
-          </motion.div>
+          <ProjectItem key={index} {...project} />
         ))}
       </div>
-    </motion.section>
+    </section>
   );
 };
 

@@ -1,0 +1,384 @@
+/* ========================================
+   QUANTUM BLOG SECTION
+   ======================================== */
+
+.blog-section {
+  position: relative;
+  padding: 6rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.blog-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* ========================================
+   TAG FILTER
+   ======================================== */
+
+.tag-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.filter-tag {
+  padding: 0.75rem 1.5rem;
+  background: rgba(13, 13, 26, 0.6);
+  border: 2px solid rgba(0, 255, 204, 0.3);
+  border-radius: 25px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.filter-tag:hover {
+  border-color: var(--quantum-cyan);
+  color: var(--quantum-cyan);
+  box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+}
+
+.filter-tag.active {
+  background: linear-gradient(135deg, var(--quantum-teal), var(--quantum-cyan));
+  border-color: var(--quantum-teal);
+  color: var(--quantum-black);
+  box-shadow: 0 0 30px rgba(0, 255, 204, 0.5);
+}
+
+/* ========================================
+   BLOG GRID
+   ======================================== */
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2.5rem;
+}
+
+/* ========================================
+   BLOG CARD LINK WRAPPER
+   ======================================== */
+
+.blog-card-link {
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+/* ========================================
+   BLOG CARD
+   ======================================== */
+
+.blog-card-quantum {
+  position: relative;
+  background: rgba(13, 13, 26, 0.8);
+  border: 2px solid rgba(0, 255, 204, 0.2);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(10px);
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.blog-card-link:hover .blog-card-quantum {
+  transform: translateY(-10px) translateZ(20px);
+  border-color: var(--quantum-teal);
+  box-shadow: 
+    0 20px 50px rgba(0, 255, 204, 0.3),
+    0 0 40px rgba(0, 255, 204, 0.2);
+}
+
+/* ========================================
+   BLOG IMAGE
+   ======================================== */
+
+.blog-image-container {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.blog-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  transition: all 0.5s ease;
+}
+
+.blog-card-link:hover .blog-image {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.blog-fallback {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--quantum-teal), var(--quantum-violet));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blog-fallback span {
+  font-size: 5rem;
+}
+
+.holographic-scan {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 255, 204, 0.2) 50%,
+    transparent 100%
+  );
+  animation: holoScan 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ========================================
+   BLOG CONTENT
+   ======================================== */
+
+.blog-content {
+  padding: 1.75rem;
+}
+
+.blog-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.blog-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  background: rgba(0, 255, 204, 0.1);
+  border: 1px solid rgba(0, 255, 204, 0.3);
+  border-radius: 20px;
+  color: var(--quantum-teal);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.tag-icon {
+  width: 12px;
+  height: 12px;
+}
+
+.blog-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.3s ease;
+}
+
+.blog-card-link:hover .blog-title {
+  color: var(--quantum-teal);
+}
+
+.blog-excerpt {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.95rem;
+}
+
+/* ========================================
+   BLOG META
+   ======================================== */
+
+.blog-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+.meta-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ========================================
+   READ MORE LINK
+   ======================================== */
+
+.read-more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--quantum-teal);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.read-more-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--quantum-teal);
+  transition: width 0.3s ease;
+}
+
+.blog-card-link:hover .read-more-link {
+  color: var(--quantum-cyan);
+}
+
+.blog-card-link:hover .read-more-link::after {
+  width: 100%;
+}
+
+.read-more-link .link-arrow {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+}
+
+.blog-card-link:hover .link-arrow {
+  transform: translateX(5px);
+}
+
+/* ========================================
+   NO POSTS MESSAGE
+   ======================================== */
+
+.no-posts {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.no-posts p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.1rem;
+}
+
+/* ========================================
+   VIEW ALL SECTION
+   ======================================== */
+
+.view-all-section {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.view-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 2.5rem;
+  background: linear-gradient(135deg, var(--quantum-teal), var(--quantum-cyan));
+  border: 2px solid var(--quantum-teal);
+  border-radius: 12px;
+  color: var(--quantum-black);
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 30px rgba(0, 255, 204, 0.4);
+}
+
+.view-all-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 50px rgba(0, 255, 204, 0.6);
+}
+
+.view-all-link .link-arrow {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.view-all-link:hover .link-arrow {
+  transform: translateX(5px);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+  .blog-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .blog-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .blog-content {
+    padding: 1.5rem;
+  }
+
+  .blog-title {
+    font-size: 1.15rem;
+  }
+
+  .tag-filter {
+    gap: 0.75rem;
+  }
+
+  .filter-tag {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-image-container {
+    height: 180px;
+  }
+
+  .blog-content {
+    padding: 1.25rem;
+  }
+
+  .blog-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .view-all-link {
+    padding: 1rem 2rem;
+    font-size: 0.95rem;
+  }
+}

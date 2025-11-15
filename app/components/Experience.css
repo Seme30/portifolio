@@ -1,0 +1,318 @@
+/* ========================================
+   QUANTUM EXPERIENCE SECTION
+   ======================================== */
+
+.experience-section {
+  position: relative;
+  padding: 6rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   QUANTUM TIMELINE
+   ======================================== */
+
+.quantum-timeline {
+  position: relative;
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+/* ========================================
+   EXPERIENCE NODE
+   ======================================== */
+
+.experience-node {
+  position: relative;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ========================================
+   NODE PULSE (Quantum Node)
+   ======================================== */
+
+.node-pulse {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.pulse-core {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--quantum-teal), var(--quantum-violet));
+  box-shadow: 0 0 30px var(--quantum-teal);
+  animation: nodePulse 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+.pulse-ring {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid var(--quantum-teal);
+  animation: quantumRipple 3s ease-out infinite;
+}
+
+/* ========================================
+   QUANTUM BEAM (Connecting Lines)
+   ======================================== */
+
+.quantum-beam {
+  position: absolute;
+  left: 40px;
+  top: 100px;
+  width: 3px;
+  height: calc(100% + 4rem);
+  background: linear-gradient(
+    180deg,
+    var(--quantum-teal) 0%,
+    var(--quantum-violet) 50%,
+    var(--quantum-cyan) 100%
+  );
+  box-shadow: 0 0 10px var(--quantum-teal);
+  animation: photonBeam 2s ease-in-out infinite;
+  transform-origin: top;
+}
+
+/* ========================================
+   EXPERIENCE CARD
+   ======================================== */
+
+.experience-card {
+  position: relative;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 2px solid rgba(0, 255, 204, 0.2);
+  transition: all 0.4s ease;
+  transform-style: preserve-3d;
+}
+
+.experience-card:hover {
+  transform: translateX(10px) translateZ(20px);
+  border-color: var(--quantum-teal);
+  box-shadow: 
+    0 10px 40px rgba(0, 255, 204, 0.3),
+    0 0 30px rgba(0, 255, 204, 0.2);
+}
+
+.card-glow-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--quantum-teal), var(--quantum-violet), var(--quantum-cyan));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  filter: blur(20px);
+  z-index: -1;
+}
+
+.experience-card:hover .card-glow-border {
+  opacity: 0.5;
+}
+
+/* ========================================
+   CARD CONTENT
+   ======================================== */
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.job-role {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  transition: color 0.3s ease;
+}
+
+.experience-card:hover .job-role {
+  color: var(--quantum-teal);
+  text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+}
+
+.job-company {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--quantum-cyan);
+}
+
+.job-company .icon {
+  width: 20px;
+  height: 20px;
+}
+
+.job-period {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+}
+
+.job-period .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.job-description {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+/* ========================================
+   LEARN MORE LINK
+   ======================================== */
+
+.learn-more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--quantum-teal);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.learn-more-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--quantum-teal);
+  transition: width 0.3s ease;
+}
+
+.learn-more-link:hover {
+  color: var(--quantum-cyan);
+  text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+}
+
+.learn-more-link:hover::after {
+  width: 100%;
+}
+
+.link-arrow {
+  transition: transform 0.3s ease;
+}
+
+.learn-more-link:hover .link-arrow {
+  transform: translateX(5px);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+  .experience-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .experience-node {
+    grid-template-columns: 60px 1fr;
+    gap: 1.5rem;
+  }
+
+  .node-pulse {
+    width: 60px;
+    height: 60px;
+  }
+
+  .pulse-core {
+    width: 24px;
+    height: 24px;
+  }
+
+  .pulse-ring {
+    width: 50px;
+    height: 50px;
+  }
+
+  .quantum-beam {
+    left: 30px;
+  }
+
+  .experience-card {
+    padding: 1.5rem;
+  }
+
+  .card-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .job-role {
+    font-size: 1.25rem;
+  }
+
+  .job-company {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .experience-node {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .node-pulse {
+    position: absolute;
+    left: -30px;
+    top: 1rem;
+    width: 40px;
+    height: 40px;
+  }
+
+  .pulse-core {
+    width: 18px;
+    height: 18px;
+  }
+
+  .pulse-ring {
+    width: 35px;
+    height: 35px;
+  }
+
+  .quantum-beam {
+    left: -10px;
+    top: 60px;
+  }
+
+  .experience-card {
+    margin-left: 20px;
+  }
+}

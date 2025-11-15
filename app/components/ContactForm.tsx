@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Mail, User, MessageSquare, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import './ContactForm.css';
 
 interface ContactFormProps {
   contactRef: React.RefObject<HTMLElement>;
@@ -108,30 +108,35 @@ const ContactForm: React.FC<ContactFormProps> = ({ contactRef }) => {
   };
 
   return (
-    <motion.section
-      ref={contactRef}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="py-16 md:py-24 lg:py-32 px-4 md:px-8 max-w-4xl mx-auto"
-    >
-      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#7F52FF] text-center">Get In Touch</h2>
-      <p className="text-center text-gray-600 dark:text-gray-400 mb-12">
+    <section ref={contactRef} className="contact-section">
+      <h2 className="section-title">
+        Get In Touch<span className="title-dot">.</span>
+      </h2>
+      <p className="section-subtitle">
         Have a question or want to work together? Feel free to reach out!
       </p>
 
-      <motion.form
-        onSubmit={handleSubmit}
-        className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 md:p-10"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.2 }}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      {/* Photon Dots Around Form */}
+      <div className="photon-field">
+        {[...Array(12)].map((_, i) => (
+          <div
+            key={i}
+            className="photon-dot"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+            }}
+          ></div>
+        ))}
+      </div>
+
+      <form onSubmit={handleSubmit} className="cosmic-console glass-morph">
+        <div className="form-grid">
           {/* Name Field */}
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-              <User className="inline w-4 h-4 mr-2" />
+          <div className="form-field">
+            <label htmlFor="name" className="field-label">
+              <User className="label-icon" />
               Name *
             </label>
             <input
@@ -140,25 +145,21 @@ const ContactForm: React.FC<ContactFormProps> = ({ contactRef }) => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className={`w-full px-4 py-3 rounded-lg border ${
-                errors.name 
-                  ? 'border-red-500 focus:ring-red-500' 
-                  : 'border-gray-300 dark:border-gray-600 focus:ring-[#7F52FF]'
-              } bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 transition-colors`}
+              className={`quantum-input ${errors.name ? 'error' : ''}`}
               placeholder="Your name"
             />
             {errors.name && (
-              <p className="mt-1 text-sm text-red-500 flex items-center">
-                <AlertCircle className="w-4 h-4 mr-1" />
+              <p className="field-error">
+                <AlertCircle className="error-icon" />
                 {errors.name}
               </p>
             )}
           </div>
 
           {/* Email Field */}
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-              <Mail className="inline w-4 h-4 mr-2" />
+          <div className="form-field">
+            <label htmlFor="email" className="field-label">
+              <Mail className="label-icon" />
               Email *
             </label>
             <input
@@ -167,16 +168,12 @@ const ContactForm: React.FC<ContactFormProps> = ({ contactRef }) => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full px-4 py-3 rounded-lg border ${
-                errors.email 
-                  ? 'border-red-500 focus:ring-red-500' 
-                  : 'border-gray-300 dark:border-gray-600 focus:ring-[#7F52FF]'
-              } bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 transition-colors`}
+              className={`quantum-input ${errors.email ? 'error' : ''}`}
               placeholder="your.email@example.com"
             />
             {errors.email && (
-              <p className="mt-1 text-sm text-red-500 flex items-center">
-                <AlertCircle className="w-4 h-4 mr-1" />
+              <p className="field-error">
+                <AlertCircle className="error-icon" />
                 {errors.email}
               </p>
             )}
@@ -184,9 +181,9 @@ const ContactForm: React.FC<ContactFormProps> = ({ contactRef }) => {
         </div>
 
         {/* Subject Field */}
-        <div className="mb-6">
-          <label htmlFor="subject" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-            <MessageSquare className="inline w-4 h-4 mr-2" />
+        <div className="form-field">
+          <label htmlFor="subject" className="field-label">
+            <MessageSquare className="label-icon" />
             Subject *
           </label>
           <input
@@ -195,24 +192,20 @@ const ContactForm: React.FC<ContactFormProps> = ({ contactRef }) => {
             name="subject"
             value={formData.subject}
             onChange={handleChange}
-            className={`w-full px-4 py-3 rounded-lg border ${
-              errors.subject 
-                ? 'border-red-500 focus:ring-red-500' 
-                : 'border-gray-300 dark:border-gray-600 focus:ring-[#7F52FF]'
-            } bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 transition-colors`}
+            className={`quantum-input ${errors.subject ? 'error' : ''}`}
             placeholder="What's this about?"
           />
           {errors.subject && (
-            <p className="mt-1 text-sm text-red-500 flex items-center">
-              <AlertCircle className="w-4 h-4 mr-1" />
+            <p className="field-error">
+              <AlertCircle className="error-icon" />
               {errors.subject}
             </p>
           )}
         </div>
 
         {/* Message Field */}
-        <div className="mb-6">
-          <label htmlFor="message" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+        <div className="form-field">
+          <label htmlFor="message" className="field-label">
             Message *
           </label>
           <textarea
@@ -221,95 +214,76 @@ const ContactForm: React.FC<ContactFormProps> = ({ contactRef }) => {
             value={formData.message}
             onChange={handleChange}
             rows={6}
-            className={`w-full px-4 py-3 rounded-lg border ${
-              errors.message 
-                ? 'border-red-500 focus:ring-red-500' 
-                : 'border-gray-300 dark:border-gray-600 focus:ring-[#7F52FF]'
-            } bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 transition-colors resize-none`}
+            className={`quantum-input ${errors.message ? 'error' : ''}`}
             placeholder="Tell me about your project or inquiry..."
           />
           {errors.message && (
-            <p className="mt-1 text-sm text-red-500 flex items-center">
-              <AlertCircle className="w-4 h-4 mr-1" />
+            <p className="field-error">
+              <AlertCircle className="error-icon" />
               {errors.message}
             </p>
           )}
         </div>
 
         {/* Submit Button */}
-        <motion.button
+        <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full py-4 px-6 rounded-lg font-semibold text-white transition-all duration-300 flex items-center justify-center ${
-            isSubmitting 
-              ? 'bg-gray-400 cursor-not-allowed' 
-              : 'bg-[#7F52FF] hover:bg-[#6B44D8] hover:shadow-lg'
-          }`}
-          whileHover={!isSubmitting ? { scale: 1.02 } : {}}
-          whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+          className={`submit-button ${isSubmitting ? 'submitting' : ''}`}
         >
           {isSubmitting ? (
             <>
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+              <div className="spinner"></div>
               Sending...
             </>
           ) : (
             <>
-              <Send className="w-5 h-5 mr-2" />
+              <Send className="button-icon" />
               Send Message
             </>
           )}
-        </motion.button>
+          <div className="button-glow"></div>
+        </button>
 
         {/* Success/Error Messages */}
         {submitStatus === 'success' && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-4 p-4 bg-green-100 dark:bg-green-900 border border-green-400 dark:border-green-600 rounded-lg flex items-center text-green-700 dark:text-green-300"
-          >
-            <CheckCircle className="w-5 h-5 mr-2" />
+          <div className="status-message success">
+            <CheckCircle className="status-icon" />
             Message sent successfully! I'll get back to you soon.
-          </motion.div>
+          </div>
         )}
 
         {submitStatus === 'error' && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-4 p-4 bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-600 rounded-lg flex items-center text-red-700 dark:text-red-300"
-          >
-            <AlertCircle className="w-5 h-5 mr-2" />
+          <div className="status-message error">
+            <AlertCircle className="status-icon" />
             Something went wrong. Please try again or email me directly.
-          </motion.div>
+          </div>
         )}
-      </motion.form>
+      </form>
 
       {/* Social Links */}
-      <div className="mt-12 text-center">
-        <p className="text-gray-600 dark:text-gray-400 mb-4">Or connect with me on:</p>
-        <div className="flex justify-center gap-6">
+      <div className="social-section">
+        <p className="social-text">Or connect with me on:</p>
+        <div className="social-icons">
           {[
             { icon: '💼', href: 'https://www.linkedin.com/in/semahegn-adugna/', label: 'LinkedIn' },
             { icon: '🐙', href: 'https://github.com/Seme30', label: 'GitHub' },
             { icon: '📧', href: 'mailto:semahegn.adugna1@gmail.com', label: 'Email' },
           ].map((link, index) => (
-            <motion.a
+            <a
               key={index}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-3xl hover:scale-110 transition-transform"
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
+              className="social-icon-link"
               title={link.label}
             >
               {link.icon}
-            </motion.a>
+            </a>
           ))}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

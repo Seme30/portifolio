@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Sun, Moon, Menu, X } from 'lucide-react';
-import { Button } from "./ui/button";
+import { Menu, X } from 'lucide-react';
+import './Header.css';
 
 interface HeaderProps {
   scrollToSection: (ref: React.RefObject<HTMLElement>) => void;
@@ -12,8 +12,6 @@ interface HeaderProps {
   experienceRef: React.RefObject<HTMLElement>;
   blogRef: React.RefObject<HTMLElement>;
   contactRef: React.RefObject<HTMLElement>;
-  isDarkMode: boolean;
-  toggleTheme: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -25,8 +23,6 @@ const Header: React.FC<HeaderProps> = ({
   experienceRef,
   blogRef,
   contactRef,
-  isDarkMode,
-  toggleTheme
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
@@ -50,12 +46,12 @@ const Header: React.FC<HeaderProps> = ({
   }, [isMenuOpen]);
 
   return (
-    <header className="fixed w-full bg-white dark:bg-gray-900 z-10 shadow-md">
-      <nav className="container mx-auto px-6 py-3">
-        <div className="flex justify-between items-center">
+    <header className="quantum-header">
+      <nav className="quantum-nav">
+        <div className="nav-content">
           <div 
             onClick={() => handleNavClick(heroRef)}
-            className="cursor-pointer flex items-center"
+            className="quantum-logo"
           >
             {!logoError ? (
               <Image
@@ -66,50 +62,40 @@ const Header: React.FC<HeaderProps> = ({
                 onError={() => setLogoError(true)}
               />
             ) : (
-              <div className="w-12 h-12 bg-gradient-to-br from-[#7F52FF] to-[#6B44D8] rounded-full flex items-center justify-center">
-                <span className="text-white text-2xl font-bold">S</span>
+              <div className="logo-fallback">
+                <span>S</span>
               </div>
             )}
+            <div className="logo-glow"></div>
           </div>
           
-          <div className="hidden md:flex items-center space-x-6">
-            <button onClick={() => handleNavClick(aboutRef)} className="text-sm hover:text-[#7F52FF]">About</button>
-            <button onClick={() => handleNavClick(skillsRef)} className="text-sm hover:text-[#7F52FF]">Skills</button>
-            <button onClick={() => handleNavClick(projectsRef)} className="text-sm hover:text-[#7F52FF]">Projects</button>
-            <button onClick={() => handleNavClick(experienceRef)} className="text-sm hover:text-[#7F52FF]">Experience</button>
-            <button onClick={() => handleNavClick(blogRef)} className="text-sm hover:text-[#7F52FF]">Blog</button>
-            <button onClick={() => handleNavClick(contactRef)} className="text-sm hover:text-[#7F52FF]">Contact</button>
+          <div className="nav-links">
+            <button onClick={() => handleNavClick(aboutRef)} className="nav-link">About</button>
+            <button onClick={() => handleNavClick(skillsRef)} className="nav-link">Skills</button>
+            <button onClick={() => handleNavClick(projectsRef)} className="nav-link">Projects</button>
+            <button onClick={() => handleNavClick(experienceRef)} className="nav-link">Experience</button>
+            <button onClick={() => handleNavClick(blogRef)} className="nav-link">Blog</button>
+            <button onClick={() => handleNavClick(contactRef)} className="nav-link">Contact</button>
           </div>
 
-          <div className="flex items-center">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="p-1 rounded-full mr-4"
-            >
-              {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
-            <button
-              className="md:hidden"
-              onClick={toggleMenu}
-            >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
-          </div>
+          <button
+            className="mobile-menu-toggle"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4">
-            <div className="flex flex-col space-y-4">
-              <button onClick={() => handleNavClick(aboutRef)} className="text-sm hover:text-[#7F52FF]">About</button>
-              <button onClick={() => handleNavClick(skillsRef)} className="text-sm hover:text-[#7F52FF]">Skills</button>
-              <button onClick={() => handleNavClick(projectsRef)} className="text-sm hover:text-[#7F52FF]">Projects</button>
-              <button onClick={() => handleNavClick(experienceRef)} className="text-sm hover:text-[#7F52FF]">Experience</button>
-              <button onClick={() => handleNavClick(blogRef)} className="text-sm hover:text-[#7F52FF]">Blog</button>
-              <button onClick={() => handleNavClick(contactRef)} className="text-sm hover:text-[#7F52FF]">Contact</button>
-            </div>
+          <div className="mobile-menu">
+            <button onClick={() => handleNavClick(aboutRef)} className="mobile-nav-link">About</button>
+            <button onClick={() => handleNavClick(skillsRef)} className="mobile-nav-link">Skills</button>
+            <button onClick={() => handleNavClick(projectsRef)} className="mobile-nav-link">Projects</button>
+            <button onClick={() => handleNavClick(experienceRef)} className="mobile-nav-link">Experience</button>
+            <button onClick={() => handleNavClick(blogRef)} className="mobile-nav-link">Blog</button>
+            <button onClick={() => handleNavClick(contactRef)} className="mobile-nav-link">Contact</button>
           </div>
         )}
       </nav>

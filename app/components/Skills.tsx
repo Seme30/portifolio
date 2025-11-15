@@ -1,6 +1,6 @@
 import React from 'react';
-import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
+import './Skills.css';
 
 interface Skill {
   name: string;
@@ -12,8 +12,6 @@ interface SkillsProps {
 }
 
 const Skills: React.FC<SkillsProps> = ({ skillsRef }) => {
-  const isInView = useInView(skillsRef, { once: true, amount: 0.2 });
-
   const skills: Skill[] = [
     { name: 'Kotlin', icon: 'https://icon.icepanel.io/Technology/svg/Kotlin.svg' },
     { name: 'Android', icon: 'https://icon.icepanel.io/Technology/svg/Android.svg' },
@@ -28,25 +26,23 @@ const Skills: React.FC<SkillsProps> = ({ skillsRef }) => {
 
 
   return (
-    <motion.section
-      ref={skillsRef}
-      className="py-16 md:py-24 lg:py-32 max-w-6xl mx-auto"
-    >
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 text-[#7F52FF]">Skills</h2>
-      <motion.div 
-        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6"
-      >
+    <section ref={skillsRef} className="skills-section">
+      <h2 className="section-title">
+        Skills<span className="title-dot">.</span>
+      </h2>
+      <div className="skills-grid">
         {skills.map((skill, index) => (
-          <motion.div 
-            key={index} 
-            className="bg-gray-100 dark:bg-gray-800 p-4 md:p-6 rounded-lg flex flex-col items-center justify-center space-y-2 hover:shadow-lg transition-shadow duration-300"
-          >
-            <Image src={skill.icon} alt={skill.name} width={48} height={48} className="w-12 h-12 md:w-16 md:h-16" />
-            <span className="text-sm md:text-base text-center">{skill.name}</span>
-          </motion.div>
+          <div key={index} className="skill-card">
+            <div className="skill-icon-wrapper">
+              <Image src={skill.icon} alt={skill.name} width={64} height={64} className="skill-icon" />
+              <div className="icon-glow"></div>
+            </div>
+            <span className="skill-name">{skill.name}</span>
+            <div className="skill-border"></div>
+          </div>
         ))}
-      </motion.div>
-    </motion.section>
+      </div>
+    </section>
   );
 };
 

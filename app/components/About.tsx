@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import './About.css';
 
 interface AboutProps {
   aboutRef: React.RefObject<HTMLElement>;
@@ -16,27 +16,16 @@ interface CertificateItemProps {
 
 const CertificateItem: React.FC<CertificateItemProps> = ({ href, title, date, tag }) => {
   return (
-    <motion.li
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ type: "spring", stiffness: 300 }}
-    >
-      <Link href={href} target="_blank">
-        <motion.div 
-          className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-          whileHover={{ y: -5 }}
-        >
-          <motion.span 
-            className="font-medium block mb-1"
-            whileHover={{ color: "#7F52FF" }}
-          >
-            {title}
-          </motion.span>
-          <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-2">{date}</p>
-          <span className="inline-block bg-[#7F52FF] text-white text-xs px-2 py-1 rounded-full">{tag}</span>
-        </motion.div>
+    <li className="certificate-item">
+      <Link href={href} target="_blank" className="certificate-link">
+        <div className="certificate-card">
+          <div className="card-glow"></div>
+          <span className="certificate-title">{title}</span>
+          <p className="certificate-date">{date}</p>
+          <span className="certificate-tag">{tag}</span>
+        </div>
       </Link>
-    </motion.li>
+    </li>
   );
 };
 
@@ -57,20 +46,7 @@ const About: React.FC<AboutProps> = ({ aboutRef }) => {
       </div>
     ),
     Qualifications: (
-      <motion.ul 
-        className="space-y-2"
-        variants={{
-          hidden: { opacity: 0 },
-          show: {
-            opacity: 1,
-            transition: {
-              staggerChildren: 0.1
-            }
-          }
-        }}
-        initial="hidden"
-        animate="show"
-      >
+      <ul className="certificates-list">
         <CertificateItem 
           href="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/gebeya.jpg?alt=media&token=c03d92d6-cad7-4897-880c-637e9447ea5d"
           title="Mobile Application Engineering"
@@ -101,63 +77,73 @@ const About: React.FC<AboutProps> = ({ aboutRef }) => {
           date="LinkedIn, Jan 23 2024"
           tag="KOTLIN DEVELOPMENT"
         />
-      </motion.ul>
+      </ul>
     ),
   };
 
   return (
-    <motion.section
-      ref={aboutRef}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="py-16 md:py-24 lg:py-32 px-4 md:px-8 max-w-7xl mx-auto"
-    >
-      <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-16">
-        <div className="w-full md:w-1/2 order-2 md:order-1">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 text-[#7F52FF]">About Me.</h2>
-          <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-8">
-            <div className="flex flex-wrap gap-2">
-              {tabs.map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                    activeTab === tab
-                      ? 'bg-[#7F52FF] text-white'
-                      : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
+    <section ref={aboutRef} className="about-section">
+      <div className="about-container">
+        {/* Left Side - Content */}
+        <div className="about-content">
+          <h2 className="section-title">
+            About Me<span className="title-dot">.</span>
+          </h2>
+          
+          {/* Neon Bars Behind Text */}
+          <div className="neon-bars">
+            <div className="neon-bar"></div>
+            <div className="neon-bar"></div>
+            <div className="neon-bar"></div>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+
+          {/* Tab Selector */}
+          <div className="tab-selector">
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`tab-button ${activeTab === tab ? 'active' : ''}`}
+              >
+                {tab}
+                {activeTab === tab && <div className="tab-indicator"></div>}
+              </button>
+            ))}
+          </div>
+
+          {/* Content Card */}
+          <div className="content-card glass-morph">
+            <div className="card-border"></div>
             {tabContent[activeTab as keyof typeof tabContent]}
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 order-1 md:order-2 flex flex-col items-center ">
-          <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 mb-6 overflow-hidden rounded-full shadow-xl">
-            <Image
-              src="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/gemini%20image.jpg?alt=media&token=2a7a1c5d-0fe6-49ae-8c52-a06aa95e31e3"
-              alt="About Me Illustration"
-              fill
-              sizes="(max-width: 768px) 256px, (max-width: 1024px) 320px, 384px"
-              className="transition-transform duration-300 hover:scale-110 object-cover"
-            />
+        {/* Right Side - Portrait */}
+        <div className="about-portrait">
+          <div className="portrait-frame-3d">
+            <div className="frame-refraction"></div>
+            <div className="portrait-wrapper">
+              <Image
+                src="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/gemini%20image.jpg?alt=media&token=2a7a1c5d-0fe6-49ae-8c52-a06aa95e31e3"
+                alt="About Me Illustration"
+                fill
+                sizes="(max-width: 768px) 256px, (max-width: 1024px) 320px, 384px"
+                className="portrait-image"
+              />
+            </div>
+            <div className="portrait-glow"></div>
           </div>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-[#7F52FF] text-center">
-            The Caffeine-Coder
-          </h2>
-          <div className="w-16 h-1 bg-[#7F52FF] rounded-full mb-4"></div>
-          <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 text-center max-w-md">
-            Fueled by coffee and passion for coding, I turn caffeine into code and ideas into reality.
-          </p>
+          
+          <div className="portrait-label">
+            <h3 className="label-title">The Caffeine-Coder</h3>
+            <div className="label-line"></div>
+            <p className="label-text">
+              Fueled by coffee and passion for coding, I turn caffeine into code and ideas into reality.
+            </p>
+          </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

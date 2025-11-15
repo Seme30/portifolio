@@ -1,95 +1,136 @@
 import React from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail } from 'lucide-react';
-import { Button } from './ui/button';
 import Link from 'next/link';
+import './Hero.css';
 
 interface HeroProps {
   heroRef: React.RefObject<HTMLElement>;
 }
 
 const Hero: React.FC<HeroProps> = ({ heroRef }) => {
-    const socialLinks = [
-        { icon: Github, href: 'https://github.com/Seme30', label: 'GitHub' },
-        { icon: Linkedin, href: 'https://www.linkedin.com/in/semahegn-adugna/', label: 'LinkedIn' },
-        { icon: Mail, href: 'mailto:semahegn.adugna1@gmail.com', label: 'Email' },
-      ];
-      
+  const socialLinks = [
+    { icon: Github, href: 'https://github.com/Seme30', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/semahegn-adugna/', label: 'LinkedIn' },
+    { icon: Mail, href: 'mailto:semahegn.adugna1@gmail.com', label: 'Email' },
+  ];
+
   return (
-    <motion.section
-      ref={heroRef}
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="container mx-auto px-4 py-12 sm:py-24">
-        <div className="flex flex-col md:flex-row items-center justify-between">
-          <motion.div 
-            className="md:w-1/2 text-center md:text-left mb-8 md:mb-0"
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
-              Hi, I'm <span className="text-[#7F52FF]">Semahegn Adugna</span>
-            </h1>
-            <p className="text-xl sm:text-2xl mb-6 text-gray-600 dark:text-gray-300">
-              Android Developer | Full Stack Web Developer
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
-            <Button className="bg-[#7F52FF] hover:bg-[#6B44D8] text-white">
-                <Link href="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/New%20Seme%20CV.pdf?alt=media&token=aa77ab5d-61e7-4897-95c6-219547ff2a8b" target="_blank">
-                Download CV
-              </Link>
-              </Button>
-              <Button variant="outline">
-                <Link href="https://www.linkedin.com/in/semahegn-adugna/" target="_blank">
-                Contact Me
-              </Link>
-              </Button>
+    <section ref={heroRef} className="hero-section">
+      {/* Quantum Ring */}
+      <div className="quantum-ring-container">
+        <div className="quantum-ring">
+          <div className="ring-inner"></div>
+          <div className="ring-outer"></div>
+          <div className="ring-glow"></div>
+        </div>
+      </div>
+
+      {/* Particle Field */}
+      <div className="particle-field">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="quantum-particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${5 + Math.random() * 10}s`,
+            }}
+          ></div>
+        ))}
+      </div>
+
+      <div className="hero-content">
+        <div className="hero-grid">
+          {/* Left Content */}
+          <div className="hero-text">
+            <div className="title-container">
+              <h1 className="hero-title">
+                Hi, I'm <span className="name-highlight">Semahegn Adugna</span>
+              </h1>
+              <div className="title-glow"></div>
             </div>
-            <div className="flex justify-center md:justify-start space-x-4">
+
+            <p className="hero-subtitle">
+              <span className="subtitle-line">Android Developer</span>
+              <span className="subtitle-divider">|</span>
+              <span className="subtitle-line">Full Stack Web Developer</span>
+            </p>
+
+            <div className="hero-actions">
+              <Link
+                href="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/New%20Seme%20CV.pdf?alt=media&token=aa77ab5d-61e7-4897-95c6-219547ff2a8b"
+                target="_blank"
+                className="quantum-button primary"
+              >
+                <span>Download CV</span>
+                <div className="button-glow"></div>
+              </Link>
+              <Link
+                href="https://www.linkedin.com/in/semahegn-adugna/"
+                target="_blank"
+                className="quantum-button secondary"
+              >
+                <span>Contact Me</span>
+                <div className="button-glow"></div>
+              </Link>
+            </div>
+
+            <div className="social-links">
               {socialLinks.map((link, index) => (
-                <motion.a
+                <a
                   key={index}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 dark:text-gray-300 hover:text-[#7F52FF] dark:hover:text-[#7F52FF]"
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
+                  className="social-link"
+                  aria-label={link.label}
                 >
-                  <link.icon className="h-6 w-6" />
-                </motion.a>
+                  <link.icon className="social-icon" />
+                  <div className="social-glow"></div>
+                </a>
               ))}
             </div>
-          </motion.div>
-          
-          <motion.div 
-            className="md:w-1/2 flex justify-center"
-            initial={{ x: 50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-              <Image
-                src="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/profile.png?alt=media&token=962d9be2-7ac3-4834-ad5a-2c4cb21ca010"
-                alt="Semahegn Adugna"
-                fill
-                sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px"
-                className="rounded-full shadow-2xl object-cover"
-                priority
-              />
-              <div className="absolute -bottom-4 -right-4 bg-white dark:bg-gray-800 p-4 rounded-full shadow-lg">
-                <code className="text-[#7F52FF] font-semibold">{"<Software Engineer/>"}</code>
+          </div>
+
+          {/* Right Content - Profile Image */}
+          <div className="hero-image-container">
+            <div className="profile-frame">
+              <div className="frame-border"></div>
+              <div className="frame-corners">
+                <div className="corner top-left"></div>
+                <div className="corner top-right"></div>
+                <div className="corner bottom-left"></div>
+                <div className="corner bottom-right"></div>
               </div>
+              <div className="profile-image-wrapper">
+                <Image
+                  src="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/profile.png?alt=media&token=962d9be2-7ac3-4834-ad5a-2c4cb21ca010"
+                  alt="Semahegn Adugna"
+                  fill
+                  sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px"
+                  className="profile-image"
+                  priority
+                />
+              </div>
+              <div className="profile-glow"></div>
             </div>
-          </motion.div>
+            <div className="code-badge">
+              <code>{"<Software Engineer/>"}</code>
+            </div>
+          </div>
         </div>
       </div>
-    </motion.section>
+
+      {/* Energy Waves */}
+      <div className="energy-waves">
+        <div className="energy-wave"></div>
+        <div className="energy-wave"></div>
+        <div className="energy-wave"></div>
+      </div>
+    </section>
   );
 };
 

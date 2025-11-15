@@ -1,74 +1,55 @@
 'use client'
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowLeft, Tag } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
+import '../blog-detail.css';
 
 export default function AIIntegrationBlogPost() {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-      <article className="max-w-4xl mx-auto px-6 py-24">
-        <Link 
-          href="/#blog" 
-          className="inline-flex items-center text-[#7F52FF] hover:underline mb-8"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
+    <div className="blog-detail-page">
+      <article className="blog-article">
+        <Link href="/#blog" className="back-button">
+          <ArrowLeft className="back-icon" />
           Back to Blog
         </Link>
 
-        <motion.header
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-12"
-        >
-          <div className="flex flex-wrap gap-2 mb-4">
+        <header className="article-header">
+          <div className="article-tags">
             {['AI/ML', 'Android', 'Innovation'].map((tag, index) => (
               <span
                 key={index}
-                className="inline-flex items-center px-3 py-1 bg-[#7F52FF]/10 text-[#7F52FF] text-sm rounded-full"
+                className="article-tag"
               >
-                <Tag className="w-3 h-3 mr-1" />
+                <Tag className="tag-icon" />
                 {tag}
               </span>
             ))}
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+          <h1 className="article-title">
             AI Integration in Mobile Applications: Practical Guide
           </h1>
 
-          <div className="flex items-center gap-6 text-gray-600 dark:text-gray-400">
-            <div className="flex items-center">
-              <Calendar className="w-5 h-5 mr-2" />
+          <div className="article-meta">
+            <div className="meta-item">
+              <Calendar className="meta-icon" />
               August 10, 2024
             </div>
             <div className="flex items-center">
-              <Clock className="w-5 h-5 mr-2" />
+              <Clock className="meta-icon" />
               7 min read
             </div>
           </div>
-        </motion.header>
+        </header>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mb-12 rounded-2xl overflow-hidden shadow-2xl"
-        >
-          <div className="relative h-96 bg-gradient-to-br from-[#7F52FF] to-[#6B44D8] flex items-center justify-center text-white text-9xl">
-            🤖
+        <div className="featured-image">
+          <div className="featured-image-wrapper">
+            <div className="featured-emoji">🔮</div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="prose prose-lg dark:prose-invert max-w-none"
-        >
+        <div className="article-content">
           <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
             Artificial Intelligence is transforming mobile applications, enabling features that were once impossible. In this guide, I'll share practical approaches to integrating AI into your mobile apps, featuring real examples from my projects including Budget Buddy and Plant Disease Detection.
           </p>
@@ -359,41 +340,20 @@ class PlantDiseaseDetector {
               Start experimenting with AI in your apps today. The tools are more accessible than ever, and the possibilities are endless!
             </p>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700"
-        >
-          <div className="flex items-center gap-4">
-            <div className="relative w-16 h-16 rounded-full overflow-hidden">
-              <Image
-                src="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/profile.png?alt=media&token=962d9be2-7ac3-4834-ad5a-2c4cb21ca010"
-                alt="Semahegn Adugna"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div>
-              <h4 className="font-bold text-lg">Semahegn Adugna</h4>
-              <p className="text-gray-600 dark:text-gray-400">
-                Software Engineer | Android & Full Stack Developer
-              </p>
-            </div>
+        <div className="share-section">
+          <h3 className="share-title">Connect With Me</h3>
+          <div className="share-buttons">
+            <Link
+              href="https://www.linkedin.com/in/semahegn-adugna/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="share-button"
+            >
+              View on LinkedIn
+            </Link>
           </div>
-        </motion.div>
-
-        <div className="mt-12 text-center">
-          <Link
-            href="https://www.linkedin.com/in/semahegn-adugna/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-8 py-4 bg-[#7F52FF] hover:bg-[#6B44D8] text-white font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl"
-          >
-            Connect on LinkedIn
-          </Link>
         </div>
       </article>
     </div>

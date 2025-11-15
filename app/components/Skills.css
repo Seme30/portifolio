@@ -1,0 +1,158 @@
+/* ========================================
+   QUANTUM SKILLS SECTION
+   ======================================== */
+
+.skills-section {
+  position: relative;
+  padding: 6rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+/* ========================================
+   SKILL CARDS
+   ======================================== */
+
+.skill-card {
+  position: relative;
+  padding: 2rem 1.5rem;
+  background: rgba(13, 13, 26, 0.6);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(0, 255, 204, 0.2);
+  transform-style: preserve-3d;
+}
+
+.skill-card:hover {
+  transform: translateY(-10px) translateZ(20px) rotateX(10deg);
+  border-color: var(--quantum-teal);
+  box-shadow: 
+    0 15px 40px rgba(0, 255, 204, 0.3),
+    0 0 30px rgba(0, 255, 204, 0.2);
+}
+
+/* ========================================
+   SKILL ICON
+   ======================================== */
+
+.skill-icon-wrapper {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skill-icon {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.4s ease;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.3));
+}
+
+.skill-card:hover .skill-icon {
+  transform: scale(1.2) rotateY(360deg);
+}
+
+.icon-glow {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 255, 204, 0.3), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: energyPulse 3s ease-in-out infinite;
+}
+
+.skill-card:hover .icon-glow {
+  opacity: 1;
+}
+
+/* ========================================
+   SKILL NAME
+   ======================================== */
+
+.skill-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.skill-card:hover .skill-name {
+  color: var(--quantum-teal);
+  text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+}
+
+/* ========================================
+   SKILL BORDER
+   ======================================== */
+
+.skill-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: linear-gradient(135deg, var(--quantum-teal), var(--quantum-violet), var(--quantum-cyan));
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.skill-card:hover .skill-border {
+  opacity: 1;
+  animation: neonBorderFlow 3s linear infinite;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+  .skills-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .skill-icon-wrapper {
+    width: 48px;
+    height: 48px;
+  }
+
+  .skill-name {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,9 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
-import { Button } from "@/app/components/ui/button"
+import { ChevronUp } from 'lucide-react'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -12,10 +10,9 @@ import Projects from './components/Projects'
 import Experience from './components/Experience'
 import Blog from './components/Blog'
 import ContactForm from './components/ContactForm'
-
+import './quantum.css'
 
 export default function HomePage() {
-  const [isDarkMode, setIsDarkMode] = useState(false)
   const [mounted, setMounted] = useState(false)
   const heroRef = useRef<HTMLElement>(null)
   const aboutRef = useRef<HTMLElement>(null)
@@ -25,34 +22,10 @@ export default function HomePage() {
   const blogRef = useRef<HTMLElement>(null)
   const contactRef = useRef<HTMLElement>(null)
 
-  // Load theme from localStorage on mount
   useEffect(() => {
     setMounted(true)
-    const savedTheme = localStorage.getItem('theme')
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDarkMode(true)
-      document.documentElement.classList.add('dark')
-    } else {
-      setIsDarkMode(false)
-      document.documentElement.classList.remove('dark')
-    }
   }, [])
 
-  // Save theme to localStorage when it changes
-  useEffect(() => {
-    if (mounted) {
-      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light')
-    }
-  }, [isDarkMode, mounted])
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode)
-    document.documentElement.classList.toggle('dark')
-  }
-
-  // Prevent flash of unstyled content
   if (!mounted) {
     return null
   }
@@ -62,9 +35,15 @@ export default function HomePage() {
   }
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'dark' : ''}`}>
-      <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
-        
+    <div className="quantum-realm">
+      {/* Deep Space Background with Parallax Starfields */}
+      <div className="quantum-background">
+        <div className="starfield starfield-1"></div>
+        <div className="starfield starfield-2"></div>
+        <div className="starfield starfield-3"></div>
+        <div className="quantum-fog"></div>
+      </div>
+
       <Header
         scrollToSection={scrollToSection}
         aboutRef={aboutRef}
@@ -74,39 +53,34 @@ export default function HomePage() {
         blogRef={blogRef}
         contactRef={contactRef}
         heroRef={heroRef}
-        isDarkMode={isDarkMode}
-          toggleTheme={toggleTheme} 
-        />
+      />
 
-        <main className="container mx-auto px-6 pt-24">
-          
-          <Hero heroRef={heroRef} />
-          <About aboutRef={aboutRef} />
-          <Skills skillsRef={skillsRef} />
-          <Projects projectsRef={projectsRef} />
-          <Experience experienceRef={experienceRef} />
-          <Blog blogRef={blogRef} />
-          <ContactForm contactRef={contactRef} />
-        </main>
+      <main className="quantum-perspective">
+        <Hero heroRef={heroRef} />
+        <About aboutRef={aboutRef} />
+        <Skills skillsRef={skillsRef} />
+        <Projects projectsRef={projectsRef} />
+        <Experience experienceRef={experienceRef} />
+        <Blog blogRef={blogRef} />
+        <ContactForm contactRef={contactRef} />
+      </main>
 
-        <footer className="bg-gray-100 dark:bg-gray-800 py-6 text-center">
+      <footer className="quantum-footer">
+        <div className="footer-content">
+          <div className="footer-line"></div>
           <p>&copy; 2025 Semahegn Adugna. All rights reserved.</p>
-        </footer>
+          <p className="footer-subtitle">Crafted in the Quantum Realm</p>
+        </div>
+      </footer>
 
-        <motion.div
-          className="fixed bottom-8 right-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.2 }}
-        >
-          <Button
-            className="bg-[#7F52FF] hover:bg-[#6B44D8] text-white rounded-full p-3"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          >
-            <ChevronDown className="h-6 w-6 transform rotate-180" />
-          </Button>
-        </motion.div>
-      </div>
+      {/* Scroll to Top Button */}
+      <button
+        className="scroll-to-top"
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="Scroll to top"
+      >
+        <ChevronUp className="h-6 w-6" />
+      </button>
     </div>
   )
 }

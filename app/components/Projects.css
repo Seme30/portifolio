@@ -1,0 +1,258 @@
+/* ========================================
+   QUANTUM PROJECTS SECTION
+   ======================================== */
+
+.projects-section {
+  position: relative;
+  padding: 6rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2.5rem;
+  margin-top: 3rem;
+}
+
+/* ========================================
+   3D PROJECT CARDS
+   ======================================== */
+
+.project-card-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.4s ease;
+  animation: tiltFloat 8s ease-in-out infinite;
+}
+
+.project-card-3d:nth-child(2n) {
+  animation-delay: 1s;
+}
+
+.project-card-3d:nth-child(3n) {
+  animation-delay: 2s;
+}
+
+.project-link {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  background: rgba(13, 13, 26, 0.8);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid rgba(0, 255, 204, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+}
+
+.project-card-3d:hover .project-link {
+  transform: translateY(-10px) translateZ(30px) rotateX(5deg);
+  border-color: var(--quantum-teal);
+  box-shadow: 
+    0 20px 60px rgba(0, 255, 204, 0.3),
+    0 0 40px rgba(0, 255, 204, 0.2);
+}
+
+/* ========================================
+   PROJECT IMAGE
+   ======================================== */
+
+.project-image-container {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.project-image {
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.project-card-3d:hover .project-image {
+  transform: scale(1.1);
+}
+
+.project-fallback {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--quantum-teal), var(--quantum-violet));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-fallback span {
+  font-size: 6rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+/* ========================================
+   HOLOGRAPHIC EFFECTS
+   ======================================== */
+
+.holographic-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 204, 0.1) 0%,
+    rgba(139, 92, 246, 0.1) 50%,
+    rgba(0, 217, 255, 0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.project-card-3d:hover .holographic-overlay {
+  opacity: 1;
+}
+
+.image-scan {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 255, 204, 0.3) 50%,
+    transparent 100%
+  );
+  animation: holoScan 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ========================================
+   PROJECT CONTENT
+   ======================================== */
+
+.project-content {
+  position: relative;
+  padding: 1.75rem;
+  z-index: 2;
+}
+
+.project-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.project-card-3d:hover .project-title {
+  color: var(--quantum-teal);
+  text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+}
+
+.project-description {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.project-glow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--quantum-teal), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.project-card-3d:hover .project-glow {
+  opacity: 1;
+  animation: energyPulse 2s ease-in-out infinite;
+}
+
+/* ========================================
+   CARD EDGES
+   ======================================== */
+
+.card-edges {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.edge {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--quantum-teal);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.project-card-3d:hover .edge {
+  opacity: 1;
+}
+
+.edge.top-left {
+  top: 10px;
+  left: 10px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.edge.top-right {
+  top: 10px;
+  right: 10px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.edge.bottom-left {
+  bottom: 10px;
+  left: 10px;
+  border-right: none;
+  border-top: none;
+}
+
+.edge.bottom-right {
+  bottom: 10px;
+  right: 10px;
+  border-left: none;
+  border-top: none;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+  .projects-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .project-image-container {
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-content {
+    padding: 1.25rem;
+  }
+
+  .project-title {
+    font-size: 1.2rem;
+  }
+
+  .project-description {
+    font-size: 0.9rem;
+  }
+}

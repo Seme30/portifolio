@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowRight, Tag } from 'lucide-react';
 import Link from 'next/link';
+import './Blog.css';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -14,89 +14,72 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
   const firstLetter = post.title.charAt(0).toUpperCase();
 
   return (
-    <motion.article
-      variants={{
-        hidden: { y: 20, opacity: 0 },
-        visible: {
-          y: 0,
-          opacity: 1,
-          transition: {
-            duration: 0.5,
-          },
-        },
-      }}
-      className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group"
-      whileHover={{ y: -5 }}
+    <Link
+      href={post.link}
+      target={post.link.startsWith('/') ? '_self' : '_blank'}
+      rel={post.link.startsWith('/') ? undefined : 'noopener noreferrer'}
+      className="blog-card-link"
     >
-      {/* Post Image */}
-      {post.image && !imageError ? (
-        <div className="relative h-48 bg-gradient-to-br from-[#7F52FF] to-[#6B44D8] overflow-hidden">
-          <img
-            src={post.image}
-            alt={post.title}
-            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"
-            onError={() => setImageError(true)}
-          />
-        </div>
-      ) : (
-        <div className="h-48 bg-gradient-to-br from-[#7F52FF] to-[#6B44D8] flex items-center justify-center">
-          <span className="text-white text-8xl font-bold">{post.image && imageError ? firstLetter : '📝'}</span>
-        </div>
-      )}
-
-      {/* Post Content */}
-      <div className="p-6">
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-3">
-          {post.tags.slice(0, 2).map((tag, index) => (
-            <span
-              key={index}
-              className="inline-flex items-center px-2 py-1 bg-[#7F52FF]/10 text-[#7F52FF] text-xs rounded-full"
-            >
-              <Tag className="w-3 h-3 mr-1" />
-              {tag}
-            </span>
-          ))}
+      <article className="blog-card-quantum">
+        {/* Post Image */}
+        <div className="blog-image-container">
+          <div className="holographic-scan"></div>
+          {post.image && !imageError ? (
+            <img
+              src={post.image}
+              alt={post.title}
+              className="blog-image"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div className="blog-fallback">
+              <span>{post.image && imageError ? firstLetter : '📝'}</span>
+            </div>
+          )}
         </div>
 
-        {/* Title */}
-        <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-[#7F52FF] transition-colors line-clamp-2">
-          {post.title}
-        </h3>
-
-        {/* Excerpt */}
-        <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-          {post.excerpt}
-        </p>
-
-        {/* Meta Info */}
-        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-500 mb-4">
-          <div className="flex items-center">
-            <Calendar className="w-4 h-4 mr-1" />
-            {new Date(post.date).toLocaleDateString('en-US', { 
-              month: 'short', 
-              day: 'numeric', 
-              year: 'numeric' 
-            })}
+        {/* Post Content */}
+        <div className="blog-content">
+          {/* Tags */}
+          <div className="blog-tags">
+            {post.tags.slice(0, 2).map((tag, index) => (
+              <span key={index} className="blog-tag">
+                <Tag className="tag-icon" />
+                {tag}
+              </span>
+            ))}
           </div>
-          <div className="flex items-center">
-            <Clock className="w-4 h-4 mr-1" />
-            {post.readTime}
+
+          {/* Title */}
+          <h3 className="blog-title">{post.title}</h3>
+
+          {/* Excerpt */}
+          <p className="blog-excerpt">{post.excerpt}</p>
+
+          {/* Meta Info */}
+          <div className="blog-meta">
+            <div className="meta-item">
+              <Calendar className="meta-icon" />
+              {new Date(post.date).toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric', 
+                year: 'numeric' 
+              })}
+            </div>
+            <div className="meta-item">
+              <Clock className="meta-icon" />
+              {post.readTime}
+            </div>
+          </div>
+
+          {/* Read More Indicator */}
+          <div className="read-more-link">
+            {post.link.startsWith('/') ? 'Read Full Article' : 'Read on LinkedIn'}
+            <ArrowRight className="link-arrow" />
           </div>
         </div>
-
-        {/* Read More Link */}
-        <Link
-          href={post.link}
-          target={post.link.startsWith('/') ? '_self' : '_blank'}
-          rel={post.link.startsWith('/') ? undefined : 'noopener noreferrer'}
-          className="inline-flex items-center text-[#7F52FF] font-semibold hover:underline group"
-        >
-          {post.link.startsWith('/') ? 'Read Full Article' : 'Read on LinkedIn'}
-          <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-        </Link>
-      </div>
-    </motion.article>
+      </article>
+    </Link>
   );
 };
 
@@ -210,71 +193,56 @@ const Blog: React.FC<BlogProps> = ({ blogRef }) => {
   };
 
   return (
-    <motion.section
-      ref={blogRef}
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-      className="py-16 md:py-24 lg:py-32 px-4 md:px-8 max-w-7xl mx-auto"
-    >
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#7F52FF]">Blog & Articles</h2>
-        <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+    <section ref={blogRef} className="blog-section">
+      <div className="blog-header">
+        <h2 className="section-title">
+          Blog & Articles<span className="title-dot">.</span>
+        </h2>
+        <p className="section-subtitle">
           Sharing insights, experiences, and knowledge about software development, mobile apps, and technology.
         </p>
       </div>
 
       {/* Tag Filter */}
-      <div className="flex flex-wrap justify-center gap-3 mb-12">
+      <div className="tag-filter">
         {allTags.map((tag) => (
-          <motion.button
+          <button
             key={tag}
             onClick={() => setSelectedTag(tag)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-              selectedTag === tag
-                ? 'bg-[#7F52FF] text-white shadow-lg'
-                : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-            }`}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className={`filter-tag ${selectedTag === tag ? 'active' : ''}`}
           >
             {tag}
-          </motion.button>
+          </button>
         ))}
       </div>
 
       {/* Blog Posts Grid */}
-      <motion.div 
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        variants={containerVariants}
-      >
+      <div className="blog-grid">
         {filteredPosts.map((post) => (
           <BlogCard key={post.id} post={post} />
         ))}
-      </motion.div>
+      </div>
 
       {/* No Posts Message */}
       {filteredPosts.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-gray-500 dark:text-gray-400 text-lg">
-            No posts found for this category.
-          </p>
+        <div className="no-posts">
+          <p>No posts found for this category.</p>
         </div>
       )}
 
       {/* View All on LinkedIn */}
-      <div className="text-center mt-12">
+      <div className="view-all-section">
         <Link
           href="https://www.linkedin.com/in/semahegn-adugna/"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center px-8 py-4 bg-[#7F52FF] hover:bg-[#6B44D8] text-white font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl"
+          className="view-all-link"
         >
           View All Posts on LinkedIn
-          <ArrowRight className="w-5 h-5 ml-2" />
+          <ArrowRight className="link-arrow" />
         </Link>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
