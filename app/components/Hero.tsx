@@ -1,137 +1,131 @@
-import React from 'react';
-import Image from 'next/image';
-import { Github, Linkedin, Mail } from 'lucide-react';
-import Link from 'next/link';
-import './Hero.css';
+import React from 'react'
+import Image from 'next/image'
+import { Github, Linkedin, Mail } from 'lucide-react'
+import Link from 'next/link'
+import './Hero.css'
 
 interface HeroProps {
-  heroRef: React.RefObject<HTMLElement>;
+  heroRef: React.RefObject<HTMLElement>
 }
 
 const Hero: React.FC<HeroProps> = ({ heroRef }) => {
-  const socialLinks = [
-    { icon: Github, href: 'https://github.com/Seme30', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://www.linkedin.com/in/semahegn-adugna/', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:semahegn.adugna1@gmail.com', label: 'Email' },
-  ];
-
   return (
     <section ref={heroRef} className="hero-section">
-      {/* Quantum Ring */}
-      <div className="quantum-ring-container">
-        <div className="quantum-ring">
-          <div className="ring-inner"></div>
-          <div className="ring-outer"></div>
-          <div className="ring-glow"></div>
-        </div>
-      </div>
+      <div className="hero-inner">
 
-      {/* Particle Field */}
-      <div className="particle-field">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="quantum-particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${5 + Math.random() * 10}s`,
-            }}
-          ></div>
-        ))}
-      </div>
-
-      <div className="hero-content">
-        <div className="hero-grid">
-          {/* Left Content */}
-          <div className="hero-text">
-            <div className="title-container">
-              <h1 className="hero-title">
-                Hi, I'm <span className="name-highlight">Semahegn Adugna</span>
-              </h1>
-              <div className="title-glow"></div>
-            </div>
-
-            <p className="hero-subtitle">
-              <span className="subtitle-line">Android Developer</span>
-              <span className="subtitle-divider">|</span>
-              <span className="subtitle-line">Full Stack Web Developer</span>
+        {/* ── Left: Terminal Window ── */}
+        <div className="hero-terminal">
+          <div className="terminal-panel-header">
+            <span className="dot dot-red" />
+            <span className="dot dot-amber" />
+            <span className="dot dot-green" />
+            <span style={{ marginLeft: 8 }}>semahegn@matrix — bash</span>
+          </div>
+          <div className="terminal-body">
+            <p className="t-line t-dim">// initializing connection...</p>
+            <br />
+            <p className="t-line">
+              <span className="t-prompt">$</span>
+              <span className="t-cmd"> cat whoami.json</span>
             </p>
-
-            <div className="hero-actions">
-              <Link
-                href="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/semahegn_adugna_cv.pdf?alt=media&token=ee8aef5f-5931-4b15-8573-de1fa823fdf0"
-                target="_blank"
-                className="quantum-button primary"
-              >
-                <span>Download CV</span>
-                <div className="button-glow"></div>
-              </Link>
-              <Link
-                href="https://www.linkedin.com/in/semahegn-adugna/"
-                target="_blank"
-                className="quantum-button secondary"
-              >
-                <span>Contact Me</span>
-                <div className="button-glow"></div>
-              </Link>
-            </div>
-
-            <div className="social-links">
-              {socialLinks.map((link, index) => (
-                <a
-                  key={index}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-link"
-                  aria-label={link.label}
-                >
-                  <link.icon className="social-icon" />
-                  <div className="social-glow"></div>
-                </a>
-              ))}
-            </div>
+            <br />
+            <p className="t-line"><span className="t-brace">{'{'}</span></p>
+            <p className="t-line t-indent">
+              <span className="t-key">&quot;name&quot;</span>
+              <span className="t-colon">: </span>
+              <span className="t-val">&quot;Semahegn Adugna&quot;</span>
+              <span className="t-comma">,</span>
+            </p>
+            <p className="t-line t-indent">
+              <span className="t-key">&quot;role&quot;</span>
+              <span className="t-colon">: </span>
+              <span className="t-val">&quot;Android + Full Stack Developer&quot;</span>
+              <span className="t-comma">,</span>
+            </p>
+            <p className="t-line t-indent">
+              <span className="t-key">&quot;stack&quot;</span>
+              <span className="t-colon">: </span>
+              <span className="t-bracket">[</span>
+              <span className="t-val">&quot;Kotlin&quot;</span>
+              <span className="t-comma">, </span>
+              <span className="t-val">&quot;React&quot;</span>
+              <span className="t-comma">, </span>
+              <span className="t-val">&quot;Next.js&quot;</span>
+              <span className="t-bracket">]</span>
+              <span className="t-comma">,</span>
+            </p>
+            <p className="t-line t-indent">
+              <span className="t-key">&quot;status&quot;</span>
+              <span className="t-colon">: </span>
+              <span className="t-val">&quot;available_for_hire&quot;</span>
+            </p>
+            <p className="t-line"><span className="t-brace">{'}'}</span></p>
+            <br />
+            <p className="t-line">
+              <span className="t-prompt">$</span>
+              <span className="t-cursor" aria-hidden="true"> </span>
+            </p>
           </div>
 
-          {/* Right Content - Profile Image */}
-          <div className="hero-image-container">
-            <div className="profile-frame">
-              <div className="frame-border"></div>
-              <div className="frame-corners">
-                <div className="corner top-left"></div>
-                <div className="corner top-right"></div>
-                <div className="corner bottom-left"></div>
-                <div className="corner bottom-right"></div>
-              </div>
-              <div className="profile-image-wrapper">
-                <Image
-                  src="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/profile.png?alt=media&token=962d9be2-7ac3-4834-ad5a-2c4cb21ca010"
-                  alt="Semahegn Adugna"
-                  fill
-                  sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px"
-                  className="profile-image"
-                  priority
-                />
-              </div>
-              <div className="profile-glow"></div>
-            </div>
-            <div className="code-badge">
-              <code>{"<Software Engineer/>"}</code>
-            </div>
+          {/* CTA buttons */}
+          <div className="hero-actions">
+            <Link
+              href="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/semahegn_adugna_cv.pdf?alt=media&token=ee8aef5f-5931-4b15-8573-de1fa823fdf0"
+              target="_blank"
+              className="matrix-btn primary"
+            >
+              <span className="btn-prefix">$</span> ./download_cv.sh
+            </Link>
+            <Link
+              href="https://www.linkedin.com/in/semahegn-adugna/"
+              target="_blank"
+              className="matrix-btn secondary"
+            >
+              <span className="btn-prefix">$</span> ./contact.sh
+            </Link>
+          </div>
+
+          {/* Social links */}
+          <div className="hero-social">
+            <a href="https://github.com/Seme30" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="social-icon-link">
+              <Github size={18} />
+            </a>
+            <a href="https://www.linkedin.com/in/semahegn-adugna/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="social-icon-link">
+              <Linkedin size={18} />
+            </a>
+            <a href="mailto:semahegn.adugna1@gmail.com" aria-label="Email" className="social-icon-link">
+              <Mail size={18} />
+            </a>
           </div>
         </div>
-      </div>
 
-      {/* Energy Waves */}
-      <div className="energy-waves">
-        <div className="energy-wave"></div>
-        <div className="energy-wave"></div>
-        <div className="energy-wave"></div>
+        {/* ── Right: Profile ── */}
+        <div className="hero-profile">
+          <div className="profile-frame">
+            <div className="profile-corners">
+              <span className="pc tl" />
+              <span className="pc tr" />
+              <span className="pc bl" />
+              <span className="pc br" />
+            </div>
+            <div className="profile-scan" aria-hidden="true" />
+            <Image
+              src="https://firebasestorage.googleapis.com/v0/b/todoapp-6e4de.appspot.com/o/profile.png?alt=media&token=962d9be2-7ac3-4834-ad5a-2c4cb21ca010"
+              alt="Semahegn Adugna"
+              fill
+              sizes="(max-width: 640px) 240px, 300px"
+              className="profile-img"
+              priority
+            />
+          </div>
+          <div className="profile-badge">
+            <code>{'<SoftwareEngineer />'}</code>
+          </div>
+        </div>
+
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero

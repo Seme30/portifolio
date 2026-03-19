@@ -2,377 +2,161 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ========================================
-   QUANTUM REALM CSS VARIABLES
-   ======================================== */
+/* ── Matrix Color System ─────────────────────────────────────────────── */
 :root {
-  /* Quantum Colors */
-  --quantum-black: #0a0a0f;
-  --quantum-deep: #0d0d1a;
-  --quantum-teal: #00ffcc;
-  --quantum-cyan: #00d9ff;
-  --quantum-violet: #8b5cf6;
-  --quantum-purple: #a855f7;
-  --quantum-pink: #ec4899;
-  --quantum-blue: #3b82f6;
-  
-  /* Glow Intensities */
-  --glow-sm: 0 0 10px;
-  --glow-md: 0 0 20px;
-  --glow-lg: 0 0 40px;
-  --glow-xl: 0 0 60px;
-  
-  /* Animation Timings */
-  --speed-slow: 8s;
-  --speed-medium: 4s;
-  --speed-fast: 2s;
-  --speed-ultra: 1s;
+  --m-black:       #000000;
+  --m-deep:        #080808;
+  --m-terminal:    #0d0d0d;
+  --m-panel:       #0a0a0a;
+  --m-green:       #00ff41;
+  --m-green-dim:   #00b32a;
+  --m-green-dark:  #003800;
+  --m-green-glow:  rgba(0, 255, 65, 0.08);
+  --m-green-border:rgba(0, 255, 65, 0.18);
+  --m-green-mid:   rgba(0, 255, 65, 0.35);
+  --m-amber:       #ffb000;
+  --m-red:         #ff3333;
+  --m-text:        #ccffcc;
+  --m-text-dim:    #5a9966;
+  --m-text-muted:  #2d5c36;
+
+  --font-display: var(--font-display, 'VT323', monospace);
+  --font-mono:    var(--font-mono, 'Share Tech Mono', monospace);
+  --font-code:    'Fira Code', 'Courier New', monospace;
 }
 
-/* ========================================
-   BASE STYLES & 3D SETUP
-   ======================================== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ── Reset ───────────────────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--quantum-black);
-  color: #ffffff;
-  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--m-black);
+  color: var(--m-text);
+  font-family: var(--font-mono), 'Share Tech Mono', monospace;
   overflow-x: hidden;
-  perspective: 1000px;
-  transform-style: preserve-3d;
+  min-height: 100vh;
 }
 
-/* ========================================
-   QUANTUM KEYFRAME ANIMATIONS
-   ======================================== */
-
-/* Quantum Ring Rotation */
-@keyframes quantumRingRotate {
-  0% { transform: rotate3d(1, 1, 0, 0deg) scale(1); }
-  50% { transform: rotate3d(1, 1, 0, 180deg) scale(1.05); }
-  100% { transform: rotate3d(1, 1, 0, 360deg) scale(1); }
+/* ── Keyframes ───────────────────────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
 }
 
-/* Energy Pulse */
-@keyframes energyPulse {
-  0%, 100% { 
-    opacity: 0.6;
-    transform: scale(1);
-    filter: brightness(1);
-  }
-  50% { 
-    opacity: 1;
-    transform: scale(1.1);
-    filter: brightness(1.5);
-  }
+@keyframes matrixGlow {
+  0%, 100% { text-shadow: 0 0 8px var(--m-green), 0 0 20px rgba(0,255,65,.4); }
+  50%       { text-shadow: 0 0 4px var(--m-green), 0 0 10px rgba(0,255,65,.2); }
 }
 
-/* Particle Float */
-@keyframes particleFloat {
-  0%, 100% { 
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.3;
-  }
-  25% { 
-    transform: translate3d(20px, -30px, 10px) scale(1.2);
-    opacity: 0.8;
-  }
-  50% { 
-    transform: translate3d(-15px, -60px, -10px) scale(0.9);
-    opacity: 0.5;
-  }
-  75% { 
-    transform: translate3d(-25px, -30px, 15px) scale(1.1);
-    opacity: 0.7;
-  }
+@keyframes scanLine {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
 }
 
-/* Holographic Shimmer */
-@keyframes holoShimmer {
-  0% { 
-    background-position: -200% center;
-    filter: hue-rotate(0deg);
-  }
-  100% { 
-    background-position: 200% center;
-    filter: hue-rotate(360deg);
-  }
+@keyframes terminalFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* 3D Tilt Hover */
-@keyframes tiltFloat {
-  0%, 100% { 
-    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0);
-  }
-  25% { 
-    transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateZ(10px);
-  }
-  50% { 
-    transform: perspective(1000px) rotateX(-2deg) rotateY(2deg) translateZ(5px);
-  }
-  75% { 
-    transform: perspective(1000px) rotateX(1deg) rotateY(1deg) translateZ(15px);
-  }
+@keyframes borderPulse {
+  0%, 100% { border-color: var(--m-green-border); }
+  50%       { border-color: var(--m-green-mid); }
 }
 
-/* Photon Beam */
-@keyframes photonBeam {
-  0% { 
-    transform: scaleX(0) translateX(-100%);
-    opacity: 0;
-  }
-  50% { 
-    opacity: 1;
-  }
-  100% { 
-    transform: scaleX(1) translateX(0);
-    opacity: 0;
-  }
-}
-
-/* Quantum Glow */
-@keyframes quantumGlow {
-  0%, 100% { 
-    box-shadow: 
-      0 0 20px var(--quantum-teal),
-      0 0 40px var(--quantum-cyan),
-      inset 0 0 20px rgba(0, 255, 204, 0.2);
-  }
-  50% { 
-    box-shadow: 
-      0 0 40px var(--quantum-cyan),
-      0 0 80px var(--quantum-violet),
-      inset 0 0 40px rgba(139, 92, 246, 0.3);
-  }
-}
-
-/* Starfield Twinkle */
-@keyframes starTwinkle {
-  0%, 100% { 
-    opacity: 0.3;
-    transform: scale(1);
-  }
-  50% { 
-    opacity: 1;
-    transform: scale(1.5);
-  }
-}
-
-/* Cosmic Drift */
-@keyframes cosmicDrift {
-  0% { 
-    transform: translate3d(0, 0, 0);
-  }
-  100% { 
-    transform: translate3d(-100px, 100px, 0);
-  }
-}
-
-/* Neon Border Flow */
-@keyframes neonBorderFlow {
-  0% { 
-    border-color: var(--quantum-teal);
-    box-shadow: 0 0 10px var(--quantum-teal);
-  }
-  33% { 
-    border-color: var(--quantum-cyan);
-    box-shadow: 0 0 20px var(--quantum-cyan);
-  }
-  66% { 
-    border-color: var(--quantum-violet);
-    box-shadow: 0 0 20px var(--quantum-violet);
-  }
-  100% { 
-    border-color: var(--quantum-teal);
-    box-shadow: 0 0 10px var(--quantum-teal);
-  }
-}
-
-/* Chromatic Aberration */
-@keyframes chromaticShift {
-  0%, 100% { 
-    text-shadow: 
-      -2px 0 var(--quantum-cyan),
-      2px 0 var(--quantum-pink);
-  }
-  50% { 
-    text-shadow: 
-      -3px 0 var(--quantum-pink),
-      3px 0 var(--quantum-cyan);
-  }
-}
-
-/* Quantum Ripple */
-@keyframes quantumRipple {
-  0% { 
-    transform: scale(0.8);
-    opacity: 1;
-  }
-  100% { 
-    transform: scale(2.5);
-    opacity: 0;
-  }
-}
-
-/* Energy Wave */
-@keyframes energyWave {
-  0% { 
-    transform: translateX(-100%) skewX(-15deg);
-    opacity: 0;
-  }
-  50% { 
-    opacity: 0.8;
-  }
-  100% { 
-    transform: translateX(200%) skewX(-15deg);
-    opacity: 0;
-  }
-}
-
-/* Holographic Scan */
-@keyframes holoScan {
-  0% { 
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  50% { 
-    opacity: 0.5;
-  }
-  100% { 
-    transform: translateY(100%);
-    opacity: 0;
-  }
-}
-
-/* Quantum Node Pulse */
 @keyframes nodePulse {
-  0%, 100% { 
-    transform: scale(1);
-    box-shadow: 0 0 20px var(--quantum-teal);
-  }
-  50% { 
-    transform: scale(1.3);
-    box-shadow: 0 0 40px var(--quantum-violet);
-  }
+  0%, 100% { box-shadow: 0 0 6px var(--m-green), 0 0 12px rgba(0,255,65,.3); transform: scale(1); }
+  50%       { box-shadow: 0 0 12px var(--m-green), 0 0 24px rgba(0,255,65,.5); transform: scale(1.15); }
 }
 
-/* ========================================
-   QUANTUM UTILITY CLASSES
-   ======================================== */
-
-.quantum-perspective {
-  perspective: 2000px;
-  transform-style: preserve-3d;
+@keyframes progressFill {
+  from { width: 0%; }
+  to   { width: var(--target-width); }
 }
 
-.quantum-3d {
-  transform-style: preserve-3d;
-  will-change: transform;
+/* ── Utility Classes ─────────────────────────────────────────────────── */
+.matrix-text       { color: var(--m-green); }
+.matrix-text-dim   { color: var(--m-green-dim); }
+.matrix-text-muted { color: var(--m-text-muted); }
+
+.terminal-border {
+  border: 1px solid var(--m-green-border);
+  animation: borderPulse 4s ease-in-out infinite;
 }
 
-.quantum-glow-teal {
-  box-shadow: 
-    0 0 20px rgba(0, 255, 204, 0.5),
-    0 0 40px rgba(0, 255, 204, 0.3),
-    inset 0 0 20px rgba(0, 255, 204, 0.1);
+.terminal-panel {
+  background: var(--m-terminal);
+  border: 1px solid var(--m-green-border);
+  border-radius: 2px;
 }
 
-.quantum-glow-violet {
-  box-shadow: 
-    0 0 20px rgba(139, 92, 246, 0.5),
-    0 0 40px rgba(139, 92, 246, 0.3),
-    inset 0 0 20px rgba(139, 92, 246, 0.1);
+.terminal-panel-header {
+  background: var(--m-deep);
+  border-bottom: 1px solid var(--m-green-border);
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--m-green-dim);
 }
 
-.quantum-glow-cyan {
-  box-shadow: 
-    0 0 20px rgba(0, 217, 255, 0.5),
-    0 0 40px rgba(0, 217, 255, 0.3),
-    inset 0 0 20px rgba(0, 217, 255, 0.1);
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.dot-red    { background: #ff3333; }
+.dot-amber  { background: #ffb000; }
+.dot-green  { background: var(--m-green); }
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: var(--m-green);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
 }
 
-.holographic-gradient {
-  background: linear-gradient(
-    135deg,
-    rgba(0, 255, 204, 0.1) 0%,
-    rgba(139, 92, 246, 0.1) 50%,
-    rgba(0, 217, 255, 0.1) 100%
-  );
+.prompt::before { content: '$ '; color: var(--m-green-dim); }
+.comment::before { content: '// '; color: var(--m-text-muted); }
+
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--m-green-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.section-tag::before { content: '> '; }
+
+.matrix-heading {
+  font-family: var(--font-display), 'VT323', monospace;
+  color: var(--m-green);
+  line-height: 1.1;
+  text-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
 }
 
-.neon-border {
-  border: 2px solid var(--quantum-teal);
-  box-shadow: 
-    0 0 10px var(--quantum-teal),
-    inset 0 0 10px rgba(0, 255, 204, 0.2);
+.matrix-fade-in {
+  animation: terminalFadeIn 0.5s ease forwards;
 }
 
-.glass-morph {
-  background: rgba(13, 13, 26, 0.7);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 255, 204, 0.2);
-}
+/* ── Scrollbar ───────────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--m-deep); }
+::-webkit-scrollbar-thumb { background: var(--m-green-dark); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: var(--m-green-dim); }
 
-/* ========================================
-   ACCESSIBILITY - REDUCED MOTION
-   ======================================== */
+/* ── Selection ───────────────────────────────────────────────────────── */
+::selection         { background: rgba(0, 255, 65, 0.25); color: #fff; }
+::-moz-selection    { background: rgba(0, 255, 65, 0.25); color: #fff; }
+
+/* ── Reduced Motion ──────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
-  
-  .quantum-ring,
-  .quantum-particle,
-  .energy-beam,
-  .holographic-card {
-    animation: none !important;
-    transform: none !important;
-  }
-}
-
-/* ========================================
-   SCROLLBAR STYLING
-   ======================================== */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--quantum-deep);
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--quantum-teal), var(--quantum-violet));
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, var(--quantum-cyan), var(--quantum-pink));
-}
-
-/* ========================================
-   SELECTION STYLING
-   ======================================== */
-::selection {
-  background: rgba(0, 255, 204, 0.3);
-  color: #ffffff;
-}
-
-::-moz-selection {
-  background: rgba(0, 255, 204, 0.3);
-  color: #ffffff;
+  #matrix-rain { display: none; }
 }
